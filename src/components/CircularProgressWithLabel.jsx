@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 class CircularProgressWithLabel extends Component {
   render() {
     const { value } = this.props;
+    const hours = Math.floor(value / 3600);
+    const minutes = Math.floor((value % 3600) / 60);
+    const seconds = value % 60;
 
     return (
       <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -22,7 +25,7 @@ class CircularProgressWithLabel extends Component {
         }}
       >
         <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(value)}%`}
+          {`${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`}
         </Typography>
       </Box>
     </Box>
