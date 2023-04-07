@@ -36,7 +36,7 @@ CircularProgressWithLabel.propTypes = {
 
 export default class CircularStatic extends Component {
   state = {
-    progress: 0,
+    progress: 100,
   }
 
   componentDidMount() {
@@ -49,7 +49,7 @@ export default class CircularStatic extends Component {
 
   updateProgress = () => {
     this.setState((prevState, _) => ({
-      progress: prevState.progress >= 100 ? 0 : prevState.progress + 1
+      progress: prevState.progress <= 100 ? prevState.progress - 1 : 0
     }))
   }
 
