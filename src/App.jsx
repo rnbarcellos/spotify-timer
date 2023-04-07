@@ -1,8 +1,9 @@
 import { Component } from "react";
+import Timer from './components/Timer';
 import "./App.css";
 
 export default class App extends Component {
   render() {
-    return <h1>Hello world!</h1>;
+    return <Timer />
   }
 }

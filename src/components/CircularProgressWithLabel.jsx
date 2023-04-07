@@ -1,9 +1,66 @@
 import { Component } from 'react';
+import { CircularProgress, Box, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
-export default class CircularProgressWithLabel extends Component {
+class CircularProgressWithLabel extends Component {
   render() {
+    const { value } = this.props;
+    const hours = Math.floor(value / 3600);
+    const minutes = Math.floor((value % 3600) / 60);
+    const seconds = value % 60;
+
     return (
-      <h1>Progress</h1>
+      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <CircularProgress variant="determinate" value={value} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="caption" component="div" color="text.secondary">
+          {`${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`}
+        </Typography>
+      </Box>
+    </Box>
+    );
+  }
+}
+
+CircularProgressWithLabel.propTypes = {
+  value: PropTypes.number.isRequired,
+};
+
+export default class CircularStatic extends Component {
+  state = {
+    progress: 100,
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(() => this.updateProgress(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID)
+  }
+
+  updateProgress = () => {
+    this.setState((prevState, _) => ({
+      progress: prevState.progress > 1 ? prevState.progress - 1 : 0
+    }))
+  }
+
+  render() {
+    const {progress} = this.state;
+
+    return (
+      <CircularProgressWithLabel value={progress}/>
     );
   }
 }
