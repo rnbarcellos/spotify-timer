@@ -49,7 +49,7 @@ export default class CircularStatic extends Component {
 
   updateProgress = () => {
     this.setState((prevState, _) => ({
-      progress: prevState.progress <= 100 ? prevState.progress - 1 : 0
+      progress: prevState.progress > 1 ? prevState.progress - 1 : 0
     }))
   }
 
